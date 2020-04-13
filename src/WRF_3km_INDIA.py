@@ -26,6 +26,20 @@ from pathlib import Path
 #def WRF3km_INDIA(in_file_path,out_file_path,slice_hr=6):
 
 
+def download(Ini_date):
+    start_time = time.time()
+    Ini_date='2020-04-06 00:00:00'
+    date_time=pd.date_range(start=Ini_date, periods=75,freq='H')
+    os.mkdir(date_time[0].strftime("%Y%m%d%H/"))
+    os.chdir(date_time[0].strftime("%Y%m%d%H/"))
+    
+    for tm in date_time[1:]:
+        nc_url=date_time[0].strftime("%Y%m%d%H/")+"WRF3km_INDIA-"+tm.strftime("%Y-%m-%d_%H.nc")
+        URL="axel -a -n 4 ftp://nwp:nwp@125.21.185.50/nwp-data/WRF_NETCDF/"+nc_url
+    #    print(YRL)
+        os.system(URL)        
+    print("Downloded in :",round(time.time() - start_time,2),"Sec")
+
 
 def heatmap(input_nc_variable, col, brk):
     start_time = time.time()
@@ -42,7 +56,7 @@ def heatmap(input_nc_variable, col, brk):
     os.mkdir(input_nc_variable.name)
     t=0
     for time_ in np.datetime_as_string(input_nc_variable.time.values,unit='h'):
-        print(time_,"    ",input_nc_variable.name)  
+#        print(time_,"    ",input_nc_variable.name)  
         fig = plt.figure(frameon=False,dpi=dpi)
         ax = plt.axes(projection=proj)
         ax.set_extent(img_extent, ccrs.PlateCarree())
@@ -59,18 +73,53 @@ def heatmap(input_nc_variable, col, brk):
         os.system(convert)
         os.remove(input_nc_variable.name+"/"+time_+'.png')
         t=t+1
-    print(time.time() - start_time)
+    print(input_nc_variable.name,"Heatmap  :",round(time.time() - start_time,2),"Sec")
 
+def nc2table(nc_vname,mask,mask_table,data_dir,weight_regrd):
+    regridder = xe.Regridder(nc_vname, mask, 'bilinear',reuse_weights=True,filename=data_dir/weight_regrd)
+    regridded_nc = regridder(nc_vname)
+    A1=regridded_nc.values
+    M1=mask.values
+    A=np.append( [M1],A1, axis=0)
+    arr = A.transpose(1,2,0)
+    df = pd.concat([pd.DataFrame(x) for x in arr], keys=np.arange(max(arr.shape)))
+    df.dropna(inplace=True)
+    clm = list(pd.to_datetime(nc_vname.time.values).strftime("%Y-%b_%d_%H"))  # version > 0.20.0
+    clm.insert(0, "Mask_id")
+    df.columns=clm
+    df=df.groupby("Mask_id").mean()
+    DF=pd.merge(mask_table,df,on="Mask_id",how="inner")  
+    DF.to_csv(nc_vname.name+".csv")
+    print(nc_vname.name)
+     
 
+def nc2table_max(nc_vname,mask,mask_table,data_dir,weight_regrd):
+    regridder = xe.Regridder(nc_vname, mask, 'bilinear',reuse_weights=True,filename=data_dir/weight_regrd)
+    regridded_nc = regridder(nc_vname)
+    A1=regridded_nc.values
+    M1=mask.values
+    A=np.append( [M1],A1, axis=0)
+    arr = A.transpose(1,2,0)
+    df = pd.concat([pd.DataFrame(x) for x in arr], keys=np.arange(max(arr.shape)))
+    df.dropna(inplace=True)
+    clm = list(pd.to_datetime(nc_vname.time.values).strftime("%Y-%b_%d_%H"))  # version > 0.20.0
+    clm.insert(0, "Mask_id")
+    df.columns=clm
+    df=df.groupby("Mask_id").max()
+    DF=pd.merge(mask_table,df,on="Mask_id",how="inner")  
+    DF.to_csv(nc_vname.name+".csv")
+    print(nc_vname.name)
+     
+def FFWI():
+    pass
 
-
-def WRF3km_fn(in_file_path,out_file_path,slice_hr,ref_date):
+def WRF3km_fn(in_file_path,out_file_path,slice_hr,ref_date,data_dir):
     os.mkdir(out_file_path)
     
     start_time = time.time()
     
     WRF3km=xr.open_mfdataset(in_file_path+"WRF3km_INDIA*.nc",concat_dim='time',combine='nested')
-    sun_=WRF3km.SWNETB*-1
+#    sun_=WRF3km.SWNETB*-1
     
     urls =glob.glob(in_file_path+"WRF3km_INDIA*.nc")
     urls.sort()
@@ -141,7 +190,19 @@ def WRF3km_fn(in_file_path,out_file_path,slice_hr,ref_date):
     ds.Heat_Index.to_netcdf("Heat_Index.nc")
     
     
+    mask_table=pd.read_csv("/home/vassar/Documents/Rahul/Block&&SubBasin/Block_UUID (1)/Block_uuid.csv")
+    mask_table=mask_table[['OBJECTID_1',"State_Name",'district', 'block',  'UUID']]
+    mask_table.columns=['Mask_id',"State_Name",'district', 'block',  'UUID']
     
+    mask = xr.open_dataset('/home/vassar/Documents/Rahul/Block&&SubBasin/Block_UUID (1)/Block.nc')
+
+    nc2table_max(ds.Temperature_2m,mask.Band1,mask_table,data_dir,"bilinear_1284x1284_3032x2923.nc") 
+    nc2table_max(ds.Relative_Humidity_2m,mask.Band1,mask_table,data_dir,"bilinear_1284x1284_3032x2923.nc") 
+    nc2table(ds.Total_precipitation,mask.Band1,mask_table,data_dir,"bilinear_1284x1284_3032x2923.nc") 
+    nc2table_max(ds.wind_speed,mask.Band1,mask_table,data_dir,"bilinear_1284x1284_3032x2923.nc") 
+    nc2table_max(ds.Heat_Index,mask.Band1,mask_table,data_dir,"bilinear_1284x1284_3032x2923.nc") 
+
+    print(time.time() - start_time)
     
     lat_new=np.linspace(WRF3km['lat'].values.min(), 
                             WRF3km['lat'].values.max(), num=int((WRF3km['lat'].values.max()-WRF3km['lat'].values.min())/0.25)+1, endpoint=True)
@@ -156,7 +217,7 @@ def WRF3km_fn(in_file_path,out_file_path,slice_hr,ref_date):
     ds_out
     
     
-    regridder = xe.Regridder(WRF3km, ds_out, 'bilinear',reuse_weights=True,filename="/home/vassar/Documents/forecast_vassarlabs/data/bilinear_1284x1284_141x141.nc");
+    regridder = xe.Regridder(WRF3km, ds_out, 'bilinear',reuse_weights=True,filename=data_dir/"bilinear_1284x1284_141x141.nc");
     regridder  # print basic regridder information.
     
     U10p25 = regridder(ds.U10)
@@ -173,18 +234,18 @@ def WRF3km_fn(in_file_path,out_file_path,slice_hr,ref_date):
     print(time.time() - start_time)
    
     
-    data_dir_raw=Path("/home/vassar/Documents/forecast_vassarlabs/data")
+#    data_dir_raw=Path("/home/vassar/Documents/forecast_vassarlabs/data")
 
 
-    brk_rh= pd.read_csv(data_dir_raw/"brk_rh.csv")["x"]
-    col_rh= pd.read_csv(data_dir_raw/"col_rh.csv")["x"]
+    brk_rh= pd.read_csv(data_dir/"brk_rh.csv")["x"]
+    col_rh= pd.read_csv(data_dir/"col_rh.csv")["x"]
     
     
-    brk_tem= pd.read_csv(data_dir_raw/"brk_tem.csv")["x"]
-    col_tem= pd.read_csv(data_dir_raw/"col_tem.csv")["x"]
+    brk_tem= pd.read_csv(data_dir/"brk_tem.csv")["x"]
+    col_tem= pd.read_csv(data_dir/"col_tem.csv")["x"]
     
-    brk_ws= pd.read_csv(data_dir_raw/"brk_ws.csv")["x"]
-    col_ws= pd.read_csv(data_dir_raw/"col_ws.csv")["x"]
+    brk_ws= pd.read_csv(data_dir/"brk_ws.csv")["x"]
+    col_ws= pd.read_csv(data_dir/"col_ws.csv")["x"]
     
     brk_rf=[0,.1,2.5,15.6,64.5,115.6,204.5,8000]
     col_rf=["#FFFFFF","#C3FDCA","#01FF04","#048500","#FDC0CB","#FC0300","#610301"]

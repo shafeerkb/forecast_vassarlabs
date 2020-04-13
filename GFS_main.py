@@ -21,6 +21,8 @@ import os
 
 
 import sys
+os.chdir(Path().absolute())
+print(Path().absolute())
 sys.path.append("./src")
 #import config
 

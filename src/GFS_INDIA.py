@@ -48,7 +48,7 @@ def heatmap(input_nc_variable, col, brk):
         ax.set_extent(img_extent, ccrs.PlateCarree())
         ax.outline_patch.set_visible(False)
         ax.background_patch.set_visible(False)
-        ax.imshow(input_nc_variable[t,:,:].values,interpolation=interp_methord,alpha=.8, cmap=cmap, norm=norm, extent=img_extent, transform=ccrs.PlateCarree())
+        ax.imshow(input_nc_variable[t,:,:].values,interpolation=interp_methord,alpha=.8, cmap=cmap,origin = 'upper', norm=norm, extent=img_extent, transform=ccrs.PlateCarree())
         #ax.contour(grid1_lon,grid1_lat,grid1,alpha=1, levels=bounds, colors='k', transform=ccrs.PlateCarree(),linewidths=0.05)    
         #ax.contour(cntr,grid1_lon,grid1_lat,grid1, colors='black')
         #ax.clabel(cntr, inline=True, fontsize=8)    
@@ -61,7 +61,41 @@ def heatmap(input_nc_variable, col, brk):
         t=t+1
     print(time.time() - start_time)
 
+def nc2table(nc_vname,mask,mask_table,data_dir,weight_regrd):
+    regridder = xe.Regridder(nc_vname, mask, 'bilinear',reuse_weights=True,filename=data_dir/weight_regrd)
+    regridded_nc = regridder(nc_vname)
+    A1=regridded_nc.values
+    M1=mask.values
+    A=np.append( [M1],A1, axis=0)
+    arr = A.transpose(1,2,0)
+    df = pd.concat([pd.DataFrame(x) for x in arr], keys=np.arange(max(arr.shape)))
+    df.dropna(inplace=True)
+    clm = list(pd.to_datetime(nc_vname.time.values).strftime("%Y-%b_%d_%H"))  # version > 0.20.0
+    clm.insert(0, "Mask_id")
+    df.columns=clm
+    df=df.groupby("Mask_id").mean()
+    DF=pd.merge(mask_table,df,on="Mask_id",how="inner")  
+    DF.to_csv(nc_vname.name+".csv")
+    print(nc_vname.name)
+     
 
+def nc2table_max(nc_vname,mask,mask_table,data_dir,weight_regrd):
+    regridder = xe.Regridder(nc_vname, mask, 'bilinear',reuse_weights=True,filename=data_dir/weight_regrd)
+    regridded_nc = regridder(nc_vname)
+    A1=regridded_nc.values
+    M1=mask.values
+    A=np.append( [M1],A1, axis=0)
+    arr = A.transpose(1,2,0)
+    df = pd.concat([pd.DataFrame(x) for x in arr], keys=np.arange(max(arr.shape)))
+    df.dropna(inplace=True)
+    clm = list(pd.to_datetime(nc_vname.time.values).strftime("%Y-%b_%d_%H"))  # version > 0.20.0
+    clm.insert(0, "Mask_id")
+    df.columns=clm
+    df=df.groupby("Mask_id").max()
+    DF=pd.merge(mask_table,df,on="Mask_id",how="inner")  
+    DF.to_csv(nc_vname.name+".csv")
+    print(nc_vname.name)
+     
 
 
 def GFS_fn(in_file_path,out_file_path,slice_hr):
@@ -173,7 +207,17 @@ def GFS_fn(in_file_path,out_file_path,slice_hr):
     brk_rf=[0,.1,2.5,15.6,64.5,115.6,204.5,8000]
     col_rf=["#FFFFFF","#C3FDCA","#01FF04","#048500","#FDC0CB","#FC0300","#610301"]
     
+    mask_table=pd.read_csv("/home/vassar/Documents/Rahul/Block&&SubBasin/Block_UUID (1)/Block_uuid.csv")
+    mask_table=mask_table[['OBJECTID_1',"State_Name",'district', 'block',  'UUID']]
+    mask_table.columns=['Mask_id',"State_Name",'district', 'block',  'UUID']
+    
+    mask = xr.open_dataset('/home/vassar/Documents/Rahul/Block&&SubBasin/Block_UUID (1)/Block.nc')
 
+    nc2table_max(ds.T_max,mask.Band1,mask_table,data_dir_raw,"bilinear_281x281_3032x2923.nc") 
+    nc2table_max(ds.Relative_Humidity_2m,mask.Band1,mask_table,data_dir_raw,"bilinear_281x281_3032x2923.nc") 
+    nc2table(ds.Total_precipitation,mask.Band1,mask_table,data_dir_raw,"bilinear_281x281_3032x2923.nc") 
+    nc2table_max(ds.wind_speed,mask.Band1,mask_table,data_dir_raw,"bilinear_281x281_3032x2923.nc") 
+    nc2table_max(ds.Heat_Index_t2,mask.Band1,mask_table,data_dir_raw,"bilinear_281x281_3032x2923.nc") 
    
 
     Process(target=heatmap, args=(ds.T_max,col_tem,brk_tem)).start()

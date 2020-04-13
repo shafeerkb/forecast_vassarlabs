@@ -1,0 +1,102 @@
+﻿OBJECTID,SUB_BASIN,UUID
+1,Ravi,20f30b79-b0dc-4c5c-8c46-ac5e088f03ec
+2,Sabarmati Lower,0e0c0ab6-2464-4402-8665-a2c52c969e7b
+3,Saraswati,6e0dcc69-173e-4baf-ae8a-9f0bbeb245cd
+4,Sabarmati Upper,15d7af1b-ce7d-4e75-9c1f-a1da71c1a7b0
+5,Shetranjuli and other east flowing rivers,7f1d13d8-d156-46c2-ab69-16a0366fc3e9
+6,Shaksgam,29d79f2f-ca85-403f-a61c-04c1bf3b46f7
+7,Shyok,1cc7983a-bb2c-4570-ac5e-2020fe268025
+8,Sone,71a9e8cd-0b3a-46a1-bdde-76f8163e96b8
+9,Subernarekha,b9bbb5b1-9bb4-4c51-884d-1e8dadde3682
+10,Sutlaj Lower,8a79a1f9-7b9b-41ab-95f3-8a6a9b3cd297
+11,Sulmar,21be6412-5e44-4515-9a02-a9ea9c267701
+12,Sutlaj Upper,547cdfcc-b320-4ab1-95af-86eca3211864
+13,Tapi Middle,61a1ecb4-0511-4b72-aceb-5e2c7312ad2d
+14,Tapi Upper,74baa857-c043-46c4-aa82-edd4f1e7f1d9
+15,Tons,58fed4e2-8bbe-414a-9dca-ef5850e33627
+16,Tungabhadra Lower,f02cdfdb-2a7e-401d-9d02-a2a28f736fc8
+17,Tungabhadra Upper,49664579-1f3a-4966-b506-bdf65c4c8055
+18,Upstream of Gomti confluece to Muzaffarnagar,ce93c3e3-d14f-46cc-8541-7f3b37e8fb64
+19,Upper Indus,c9a01b93-dfd9-4374-b603-a36cda7bd612
+20,Vaippar and others,5767c8a8-9dac-443a-9bb5-1f6f0ead1b0a
+21,East flowing rivers between Vamsadhara and Mahanadi,cf84e615-179b-4cfd-acb9-27aca174e2a2
+22,Varrar and others,4a6b386e-8fa4-464f-a8ed-1b70db684072
+23,Wardha,a9d85944-2667-410e-a38e-6b7d6dc62b32
+24,Weinganga,1a25f963-81ae-4983-ab94-809176c11484
+25,Yamuna Lower,a921ce71-2d6f-455f-9571-733248c01071
+26,Yamuna Middle,311452f3-4736-49c0-ae50-dc0325812773
+27,Yamuna Upper,ba4089dd-4a5c-419f-8196-c3d3f5c569cc
+28,Bhatsol and others,5a6c6db0-056b-40ee-ba83-3476ec4df519
+29,Vasishti and others,62564067-a8a3-439a-aeb4-aca924df2ca7
+30,East flowing rivers between Godavari and krishna,c1f9c22b-b421-4b12-8b66-7264a6ac59ce
+31,Mahi Lower,4a412fea-7396-43f1-b3cb-f836b4f9a796
+32,Narmada Lower,d5a83ff6-0cd7-4af4-80eb-81eb5ea94338
+33,Tapi Lower,171c40a1-836b-4120-a44a-857dd83935e4
+34,Above Ramganga Confluence,b03f350b-a707-4757-925f-53f9e33f1553
+35,Baitarni,d168b251-ce98-49cb-b762-823161bb70dd
+36,Area of Inland drainage in Rajasthan,d62567e9-08e6-4b13-a574-9d2532271451
+37,Banas,f044fa71-614f-4f83-9d1a-d3248f137212
+38,Barak,ddc3f723-99e3-4e6b-96e3-3552c33574a4
+39,Beas,eb0e20ff-7c19-4561-b3c8-facb0c1c8ad9
+40,Bhadar and other west flowing rivers,3564fb29-ced9-46aa-ac30-40f8aaa4a1b8
+41,Bhagirathi and others (Ganga Lower),fcb9189c-7dfb-4b29-854d-42d6fac5a082
+42,Bhima Lower,f1997fae-932f-4e75-8699-ab12be1ff887
+43,Bhima Upper,f19d702d-eb23-4d8c-9a19-690f88d59d96
+44,Brahmani,d7c195ef-8323-47af-8008-10d7dbb441ef
+45,Brahmaputra Lower,d169a185-44d7-4fa0-9b09-6cef6ca10889
+46,Brahmaputra Upper,936ded4d-7ed8-457f-ab85-fcbc242e1e50
+47,Cauvery Lower,15ca27c7-6fa9-4f87-9636-31c9bc5a513d
+48,Cauvery Middle,d1fdf08d-9a8c-47af-8691-c88e1dd7b49b
+49,Cauvery Upper,ad10aaad-0d72-4b55-802d-2671fa72e5bd
+50,Chenab,bc227dc8-a872-497f-a0c2-5e38a887070b
+51,Chambal Lower,f3ee4703-1dba-43b0-80b3-0954291ccccd
+52,Chambal Upper,8868f995-83c6-499a-95d1-c8d9cedcdb3f
+53,Drainage Area of Lakshadweep Islands,624eecad-ce7d-44e2-99e6-d1709afe616a
+54,Damodar,11d34a40-6a60-4f3f-a90e-f9eaa1e85624
+55,Drainage Area of Andaman and Nicobar Islands,1135eb55-5aa7-4494-9816-e4b52edd0931
+56,Gandak and others,e26049ee-d1df-41ef-8a8d-57f47767405f
+57,Godavari Lower,2d1944c1-e8cb-4506-8d30-6304a09b4914
+58,Godavari Middle,60f6cc5f-52c1-4064-a3b8-c66084270d88
+59,Godavari Upper,ab8a1a78-1d3a-411d-be5e-1a535b07ccb6
+60,Ghaghara,ed6bf5cf-fe40-4536-845a-bf397aa44ef5
+61,Ghaghara Confluence to Gomti confluence,3d9ab6bd-9644-4b97-a383-118ddfff6ebe
+62,Ghaghar and others,389eb29d-91f9-44f3-9a46-18d9fd88b92d
+63,Gilgit,850a4a2a-d75c-4a07-b3c9-fd2f9db8ff75
+64,Gomti,566f13ab-f32c-48f0-ac0b-c37933c4e7d9
+65,Imphal and others,5ca8569b-0128-434c-ac69-0f30c0547203
+66,Indravati,d8858c28-693f-4ea2-801a-4190d09c061b
+67,Jhelum,2e64f8a7-e504-41d0-afd7-5a66fc6f8eea
+68,Kali Sindh and others up to Confluence with Parbati,db319790-f6c8-4f91-b391-7c3e65556f77
+69,Kosi,5e759c4d-a8e4-47a6-a3e2-849820393f4a
+70,Khawthlangtuipui & Others,6c260e4d-a348-49ed-9e67-7781ddf83045
+71,Krishna Lower,24af9c6c-b1e3-4930-b54a-9be7f6d7ac24
+72,Krishna Middle,e0413c70-33af-456b-ac3f-22c46d274dae
+73,Krishna Upper,292d1837-a6c0-4716-b2ee-f565a7ab20d1
+74,East flowing rivers between krishna and Pennar,d4d4fd4c-f450-476c-ad68-625fcd561caf
+75,Kynchiang and other south flowing rivers,96470ca2-6f6d-4fda-a6c3-8f23a8a03284
+76,Lower Indus,73a16015-11fe-460a-b25f-1adf1dbfa97d
+77,Luni Lower,e51260e3-c9de-4578-a86a-e934a98fa383
+78,Luni Upper,31390815-6cfd-46e6-81c2-edf84869b2c9
+79,Manjra,a79de845-4a2d-4f35-a9c9-bd8c8b9533dd
+80,Mahanadi Lower,e0230d10-4a94-4b91-a0f2-0ecdfb03bbe6
+81,Mahanadi Middle,47985a71-34d4-4872-a96f-51d7eac125fc
+82,Chhimtuipui & Others,5f6e2d38-485c-49ae-983d-e7f3f55fb451
+83,Mahanadi Upper,ae60467f-ef20-497d-95a6-f53904335648
+84,Muhury and Others,42791b5a-03a8-400f-8609-fba877cb008c
+85,Mahi Upper,2b8cf25f-10bd-49ed-acad-da28515e17fe
+86,East flowing rivers between Nagavali and Godavari,3aadf400-c31f-4692-8484-3807b8d3a5d1
+87,Narmada Middle,0afd0acd-6158-434e-9231-67d3d6ecdc05
+88,Naoch chara and others,1c6a357f-2008-4a82-be4e-3578227ab588
+89,Narmada Upper,8b26d329-fdc7-4989-b7ea-82f1dd68c246
+90,Netravati and others,9be2dc8a-953e-4cd5-b936-0e594221942d
+91,Palar and other,e7e0c67e-750e-49fe-bf79-79f31a8679de
+92,Pamba and others,77a37967-fd7c-4710-be26-884c1854bfe9
+93,Periyar and others,2b2fe2f2-b798-42f2-a22a-dcd4c9689584
+94,Pennar Lower,788e6ba2-42c5-46b7-a2db-391bc776e2f8
+95,Pennar Upper,41a3dc57-fc1f-4e7c-bf44-9a8dad278662
+96,Ponnaiyar and other,3050b8da-6e25-4809-bbf1-0488c9d05d33
+97,Pranhita and others,5bc5c0d9-0336-4e33-91f9-0cb875046d7d
+98,Ramganga,f6e66e04-b548-4355-9db1-82bca94d1a7c
+99,Drainage of Rann,afc6d45c-e9e9-443c-b3e7-0d31790eec31
+86,Nagavali,502a0492-733f-11ea-89f5-1002b57d618a
+21,Vamsadhara,4b8e795d-733f-11ea-89f5-1002b57d618a

@@ -19,25 +19,29 @@ import glob
 import time
 import os
 
-
 import sys
+
+os.chdir(Path().absolute())
+print(Path().absolute())
+
 sys.path.append("./src")
-#import config
+from src.WRF_3km_INDIA import WRF3km_fn,heatmap
 
+start_time = time.time()
 
-from WRF_3km_INDIA import WRF3km_fn,heatmap
-
-
-sys.path.append("/home/vassar/Documents/forecast_vassarlabs/data")
+data_dir=Path("./data").absolute()
+brk_rh= pd.read_csv(data_dir/"brk_rh.csv")["x"]
 
 in_file_path="/home/vassar/Documents/forcastdata/WRF/"
-out_file_path="/home/vassar/Documents/forecast_vassarlabs/2020022600"
+out_file_path="/home/vassar/2020022600"
 slice_hr=6
 ref_date='2020-02-26 00:00:00'
 
-WRF3km_fn(in_file_path,out_file_path,slice_hr,ref_date)   
+
+
+WRF3km_fn(in_file_path,out_file_path,slice_hr,ref_date,data_dir)   
 
     
-
+print("Total time=", time.time() - start_time,"Sec")
 
 

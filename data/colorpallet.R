@@ -34,7 +34,7 @@ for (i in 1:(length(brk)-1)) {
 }
 
 #windy
-col=colorRampPalette(c("#6271B7","#3D6EA2","#4A93A9","#4A9193","#4D8D7C","#4CA34C","#67A336","#A18640","#A16D5C","#8C3F5C","#964B90", "#5F649F", "#5B87A0"))(length(brk_hr)-1) 
+#col=colorRampPalette(c("#6271B7","#3D6EA2","#4A93A9","#4A9193","#4D8D7C","#4CA34C","#67A336","#A18640","#A16D5C","#8C3F5C","#964B90", "#5F649F", "#5B87A0"))(length(brk_hr)-1) 
 
 col=colorRampPalette(c("purple4","#3D6EA2","#4A93A9","#4A9193","#4D8D7C","#4CA34C","#67A336","#A18640","#A16D5C","#8C3F5C","#964B90", "#5F649F", "#5B87A0"))(length(brk_hr)-1) 
 
